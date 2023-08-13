@@ -28,4 +28,9 @@ export class TodoService {
       },
     });
   }
+
+  // 추가 쿼리빌더
+  async addTodo(data: Todo): Promise<Todo> {
+    return this.prismaService.todo.create({ data });
+  }
 }
