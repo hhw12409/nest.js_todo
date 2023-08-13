@@ -12,8 +12,17 @@ export class TodoService {
   }
 
   // 단일조회 쿼리빌더
-  async getTodoById(id: number): Promise<Todo> {
+  async getTodoById(id: number): Promise<Todo | null> {
     return this.prismaService.todo.findUnique({
+      where: {
+        id: Number(id),
+      },
+    });
+  }
+
+  // 단일삭제 쿼리빌더
+  async deleteTodoById(id: number): Promise<Todo | null> {
+    return this.prismaService.todo.delete({
       where: {
         id: Number(id),
       },
