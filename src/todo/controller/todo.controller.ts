@@ -1,4 +1,18 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
+import { TodoService } from '../service/todo.service';
+import { Todo } from '@prisma/client';
 
-@Controller('todo')
-export class TodoController {}
+@Controller('api/todos')
+export class TodoController {
+  constructor(private readonly todoService: TodoService) {}
+
+  @Get()
+  async getAllTodos(): Promise<Todo[]> {
+    return this.todoService.getAllTodos();
+  }
+
+  @Get('/:id')
+  async getTodoById(@Param('id') id: number): Promise<Todo> {
+    return this.todoService.getTodoById(id);
+  }
+}
