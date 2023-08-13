@@ -30,7 +30,26 @@ export class TodoService {
   }
 
   // 추가 쿼리빌더
-  async addTodo(data: Todo): Promise<Todo> {
+  async postTodo(data: Todo): Promise<Todo> {
     return this.prismaService.todo.create({ data });
+  }
+
+  // 수정 쿼리빌더
+  async updateTodo(
+    id: number,
+    title: string,
+    content: string,
+    is_done: boolean,
+  ): Promise<Todo | null> {
+    return this.prismaService.todo.update({
+      where: {
+        id: Number(id),
+      },
+      data: {
+        title,
+        content,
+        is_done,
+      },
+    });
   }
 }
