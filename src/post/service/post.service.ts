@@ -10,4 +10,12 @@ export class PostService {
   async getAllPost(): Promise<Post[]> {
     return this.prismaService.post.findMany();
   }
+
+  async getPostById(id: number): Promise<Post> {
+    return this.prismaService.post.findUnique({
+      where: {
+        id: Number(id),
+      },
+    });
+  }
 }
