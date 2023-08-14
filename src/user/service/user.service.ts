@@ -19,4 +19,9 @@ export class UserService {
       },
     });
   }
+
+  // 계정 생성
+  async postUser(data: User): Promise<User> {
+    return this.prismaService.user.create({ data });
+  }
 }
