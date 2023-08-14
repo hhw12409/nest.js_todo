@@ -11,11 +11,17 @@ export class PostService {
     return this.prismaService.post.findMany();
   }
 
+  // 단일조회 쿼리빌더
   async getPostById(id: number): Promise<Post> {
     return this.prismaService.post.findUnique({
       where: {
         id: Number(id),
       },
     });
+  }
+
+  // Post생성 쿼리빌더
+  async postPost(data: Post): Promise<Post> {
+    return this.prismaService.post.create({ data });
   }
 }
