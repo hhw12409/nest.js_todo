@@ -11,17 +11,18 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique @db.VarChar(100)
-  password  String   @db.VarChar(100)
-  name      String   @db.VarChar(45)
-  nickName  String   @unique @db.VarChar(45)
-  phone     String?  @unique @db.VarChar(100)
+  id        Int       @id @default(autoincrement())
+  email     String    @unique @db.VarChar(100)
+  password  String    @db.VarChar(100)
+  name      String    @db.VarChar(45)
+  nickName  String    @unique @db.VarChar(45)
+  phone     String?   @unique @db.VarChar(100)
   avatar    String?
-  createdAt DateTime @default(now())
-  role      Role     @default(USER)
-  posts     Post[]   
+  createdAt DateTime  @default(now())
+  role      Role      @default(USER)
+  posts     Post[]
   profile   Profile?
+  Comment   Comment[]
 }
 
 model Profile {
@@ -41,10 +42,23 @@ model Post {
   createdAt  DateTime   @default(now())
   updatedAt  DateTime   @updatedAt
   title      String
+  content    String
   published  Boolean    @default(false)
   author     User       @relation(fields: [authorId], references: [id])
   authorId   Int
   categories Category[]
+  comments   Comment[]
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  Int
+  Post      Post    @relation(fields: [postId], references: [id])
+  postId    Int
+  content   String
 }
 
 model Category {
